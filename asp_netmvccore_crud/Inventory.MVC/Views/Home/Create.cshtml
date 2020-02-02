@@ -1,0 +1,91 @@
+﻿@model Inventory.MVC.Models.ProductViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <select asp-for="Category"
+                        class="form-control"
+                        asp-items="@(new SelectList(@ViewBag.CategoryList,"Key", "Value"))"></select>
+                @*@{
+                if (@ViewBag.CategoryList != null)
+                {
+                    <select asp-for="Category" class="form-control" asp-items="@(new SelectList(@ViewBag.CategoryList,"Key", "Value"))"></select>
+                }
+            }*@
+
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ColorName" class="control-label"></label>
+                @{
+                    if (ViewBag.ColorList != null)
+                    {
+                        foreach (var item in ViewBag.ColorList)
+                        {
+                            <input type="radio" name="ColorName" value="@item.Value" />@item.Value
+                        }
+                    }
+                }
+                <span asp-validation-for="ColorName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitPrice" class="control-label"></label>
+                <input asp-for="UnitPrice" class="form-control" />
+                <span asp-validation-for="UnitPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AvailableQuantity" class="control-label"></label>
+                <input asp-for="AvailableQuantity" class="form-control" />
+                <span asp-validation-for="AvailableQuantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductImage" class="control-label"></label>
+                <input asp-for="ProductImage" class="form-control" type="file" />
+                <span asp-validation-for="ProductImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Companies" class="control-label"></label>
+                @{
+                    if (ViewBag.Companies != null)
+                    {
+                        @foreach (var item in ViewBag.Companies)
+                        {
+                            <input type="checkbox" name="Companies" id="@item.Key" value="@item.Key"/>@item.Key
+                        }
+                    }
+                }
+                <span asp-validation-for="Companies" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+
+
+
+
+
